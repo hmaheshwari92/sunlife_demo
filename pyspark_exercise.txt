@@ -1,0 +1,23 @@
+PYSPARK EXERCISE
+load the futures and options data from fo_sample_data using spark.read.csv method with the options to infer the schema and provide for each file having a header in the first row,  in a data frame named as fo_df
+drop the _c15 column and  save the new data frame as fodf
+print he number of rows in the data frame
+find the number of partitions in the rdd backing the data frame. on any data frame we have to call the .rdd property to access the backing rdd
+filter the futures and options data to only include the symbol NIFTY 
+call the filterred data frame fodf_nifty
+find the count of rows in fodf_nifty
+load the data for nifty from the file nifty2023.csv using spark.read.csv method in a data frame named nifty_df
+find the count of rows int nifty_df
+use selectExpr to create nifty_close_df selecting columns date and close renamed to nclose
+join the fodf_nifty with the nifty_close_df on the expiry_dt column from fodf_nifty and date column from nifty_close_df 
+call the joined data frame join_df
+print the schema for the join_df  dataframe - verify it has the nclose column
+verify that the steps were carried out successfully
+executing
+join_df.filter("upper(timestamp) = '28-SEP-2023' and option_typ = 'XX'").select('instrument', 'symbol', 'expiry_dt', 'strike_pr', 'option_typ', 'timestamp', 'close', 'date', 'nclose').show()
+should show
++----------+------+-----------+---------+----------+-----------+--------+-----------+--------+
+|instrument|symbol|  expiry_dt|strike_pr|option_typ|  timestamp|   close|       date|  nclose|
++----------+------+-----------+---------+----------+-----------+--------+-----------+--------+
+|    FUTIDX| NIFTY|28-Sep-2023|      0.0|        XX|28-SEP-2023|19522.95|28-Sep-2023|19523.55|
++----------+------+-----------+---------+----------+-----------+--------+-----------+--------+
