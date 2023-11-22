@@ -1,1 +1,24 @@
-hI
+TO_DATE(
+    TO_CHAR(
+        TO_DATE(
+            SUBSTR(DOB, 1, 2) || ' ' || 
+            CASE 
+                WHEN INSTR(DOB, 'JAN') > 0 THEN 'JAN'
+                WHEN INSTR(DOB, 'FEB') > 0 THEN 'FEB'
+                WHEN INSTR(DOB, 'MAR') > 0 THEN 'MAR'
+                WHEN INSTR(DOB, 'APR') > 0 THEN 'APR'
+                WHEN INSTR(DOB, 'MAY') > 0 THEN 'MAY'
+                WHEN INSTR(DOB, 'JUN') > 0 THEN 'JUN'
+                WHEN INSTR(DOB, 'JUL') > 0 THEN 'JUL'
+                WHEN INSTR(DOB, 'AUG') > 0 THEN 'AUG'
+                WHEN INSTR(DOB, 'SEP') > 0 THEN 'SEP'
+                WHEN INSTR(DOB, 'OCT') > 0 THEN 'OCT'
+                WHEN INSTR(DOB, 'NOV') > 0 THEN 'NOV'
+                WHEN INSTR(DOB, 'DEC') > 0 THEN 'DEC'
+            END || ' ' ||
+            SUBSTR(DOB, 3),
+            'DD MON YYYY'
+        ),
+        'DD-MON-YYYY'
+    )
+)
